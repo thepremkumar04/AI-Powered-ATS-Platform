@@ -220,12 +220,13 @@ const RecruiterDashboard = () => {
                             <div className="h-6 w-px bg-gray-200"></div> {/* Divider */}
 
                             {/* 🟢 FIXED: 'Shortlisted' & 'Rejected' (Capital Letters) */}
-                            <button onClick={() => handleStatusUpdate(app.id, 'Shortlisted')} className="text-green-600 hover:bg-green-50 p-2 rounded-lg transition" title="Shortlist">
-                              <CheckCircle className="w-5 h-5" />
-                            </button>
-                            <button onClick={() => handleStatusUpdate(app.id, 'Rejected')} className="text-red-600 hover:bg-red-50 p-2 rounded-lg transition" title="Reject">
-                              <XCircle className="w-5 h-5" />
-                            </button>
+                            <button onClick={() => handleStatusUpdate(app.id, 'SHORTLISTED')} className="text-green-600 hover:bg-green-50 p-2 rounded-lg transition" title="Shortlist">
+  <CheckCircle className="w-5 h-5" />
+</button>
+
+<button onClick={() => handleStatusUpdate(app.id, 'REJECTED')} className="text-red-600 hover:bg-red-50 p-2 rounded-lg transition" title="Reject">
+  <XCircle className="w-5 h-5" />
+</button>
                           </div>
                         </td>
                       </tr>

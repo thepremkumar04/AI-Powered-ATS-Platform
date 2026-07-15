@@ -19,7 +19,7 @@ const Dashboard = () => {
   }, []);
 
   const fetchJobs = () => {
-    axios.get('https://ai-powered-ats-platform-bxqx.onrender.com/api/jobs/')
+    axios.get('http://127.0.0.1:8000/api/jobs/')
       .then((response) => {
         setJobs(response.data);
         setLoading(false);
@@ -30,7 +30,7 @@ const Dashboard = () => {
   // Kotha Function: Token vaadi apply chesina jobs thechukovadam
   const fetchMyApplications = () => {
     const token = localStorage.getItem('access_token');
-    axios.get('https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/', {
+    axios.get('http://127.0.0.1:8000/api/applications/', {
       headers: { 'Authorization': `Bearer ${token}` } // Token pamputunnam
     })
       .then((response) => {
@@ -56,7 +56,7 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('access_token');
-      await axios.post('https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/', formData, {
+      await axios.post('http://127.0.0.1:8000/api/applications/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
