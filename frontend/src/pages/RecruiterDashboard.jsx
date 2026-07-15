@@ -28,6 +28,7 @@ const RecruiterDashboard = () => {
 
   const fetchApplications = () => {
     const token = localStorage.getItem('access_token');
+    // 🟢 FIXED: Localhost nunchi Render ki marcham
     axios.get('https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
@@ -41,6 +42,7 @@ const RecruiterDashboard = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     const token = localStorage.getItem('access_token');
     try {
+      // 🟢 FIXED: Localhost nunchi Render ki marcham
       await axios.patch(`https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/${id}/`, 
         { status: newStatus },
         { headers: { 'Authorization': `Bearer ${token}` } }
@@ -60,6 +62,7 @@ const RecruiterDashboard = () => {
     const token = localStorage.getItem('access_token');
 
     try {
+      // 🟢 FIXED: Localhost nunchi Render ki marcham
       await axios.post('https://ai-powered-ats-platform-bxqx.onrender.com/api/jobs/', jobForm, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
@@ -181,6 +184,7 @@ const RecruiterDashboard = () => {
                         </td>
                         <td className="p-4">
                           <a 
+                            // 🟢 FIXED: Resume link kooda Render ki marcham
                             href={app.resume.startsWith('http') ? app.resume : `https://ai-powered-ats-platform-bxqx.onrender.com${app.resume}`} 
                             target="_blank" 
                             rel="noopener noreferrer"
@@ -203,7 +207,7 @@ const RecruiterDashboard = () => {
                         </td>
                         <td className="p-4">
                           <div className="flex items-center justify-center gap-3">
-                            {/* 🟢 AI Brain Toggle Button */}
+                            {/* AI Brain Toggle Button */}
                             <button 
                               onClick={() => toggleRow(app.id)}
                               className="text-purple-600 hover:bg-purple-50 p-2 rounded-lg transition flex items-center gap-1 font-medium text-sm"
@@ -215,17 +219,18 @@ const RecruiterDashboard = () => {
                             
                             <div className="h-6 w-px bg-gray-200"></div> {/* Divider */}
 
-                            <button onClick={() => handleStatusUpdate(app.id, 'shortlisted')} className="text-green-600 hover:bg-green-50 p-2 rounded-lg transition" title="Shortlist">
+                            {/* 🟢 FIXED: 'Shortlisted' & 'Rejected' (Capital Letters) */}
+                            <button onClick={() => handleStatusUpdate(app.id, 'Shortlisted')} className="text-green-600 hover:bg-green-50 p-2 rounded-lg transition" title="Shortlist">
                               <CheckCircle className="w-5 h-5" />
                             </button>
-                            <button onClick={() => handleStatusUpdate(app.id, 'rejected')} className="text-red-600 hover:bg-red-50 p-2 rounded-lg transition" title="Reject">
+                            <button onClick={() => handleStatusUpdate(app.id, 'Rejected')} className="text-red-600 hover:bg-red-50 p-2 rounded-lg transition" title="Reject">
                               <XCircle className="w-5 h-5" />
                             </button>
                           </div>
                         </td>
                       </tr>
 
-                      {/* 🟢 Hidden AI Insights Row */}
+                      {/* Hidden AI Insights Row */}
                       {expandedRow === app.id && (
                         <tr className="bg-purple-50/30 border-b border-purple-100">
                           <td colSpan="6" className="p-6">
