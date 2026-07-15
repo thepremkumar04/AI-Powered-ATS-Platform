@@ -18,10 +18,10 @@ const Login = () => {
 
     try {
       // Django API ki login details pamputunnam
-      const response = await axios.post('http://127.0.0.1:8000/api/token/', {
-        username: username,
-        password: password,
-      });
+      const response = await axios.post('https://ai-powered-ats-platform-bxqx.onrender.com/api/token/', {
+  username: username,
+  password: password,
+});
 
       // Tokens vasthe, Local Storage lo save chestunnam
       localStorage.setItem('access_token', response.data.access);
