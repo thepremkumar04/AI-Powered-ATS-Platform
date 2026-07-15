@@ -28,7 +28,7 @@ const RecruiterDashboard = () => {
 
   const fetchApplications = () => {
     const token = localStorage.getItem('access_token');
-    axios.get('http://127.0.0.1:8000/api/applications/', {
+    axios.get('https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/', {
       headers: { 'Authorization': `Bearer ${token}` }
     })
       .then((response) => {
@@ -41,7 +41,7 @@ const RecruiterDashboard = () => {
   const handleStatusUpdate = async (id, newStatus) => {
     const token = localStorage.getItem('access_token');
     try {
-      await axios.patch(`http://127.0.0.1:8000/api/applications/${id}/`, 
+      await axios.patch(`https://ai-powered-ats-platform-bxqx.onrender.com/api/applications/${id}/`, 
         { status: newStatus },
         { headers: { 'Authorization': `Bearer ${token}` } }
       );
@@ -60,7 +60,7 @@ const RecruiterDashboard = () => {
     const token = localStorage.getItem('access_token');
 
     try {
-      await axios.post('http://127.0.0.1:8000/api/jobs/', jobForm, {
+      await axios.post('https://ai-powered-ats-platform-bxqx.onrender.com/api/jobs/', jobForm, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       
@@ -181,7 +181,7 @@ const RecruiterDashboard = () => {
                         </td>
                         <td className="p-4">
                           <a 
-                            href={app.resume.startsWith('http') ? app.resume : `http://127.0.0.1:8000${app.resume}`} 
+                            href={app.resume.startsWith('http') ? app.resume : `https://ai-powered-ats-platform-bxqx.onrender.com${app.resume}`} 
                             target="_blank" 
                             rel="noopener noreferrer"
                             className="flex items-center gap-1.5 text-blue-600 hover:text-blue-800 font-medium bg-blue-50 px-3 py-1.5 rounded-md w-fit transition"
