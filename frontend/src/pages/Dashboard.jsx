@@ -4,7 +4,7 @@ import { Briefcase, CheckCircle, Clock, FileText, User, Upload, X } from 'lucide
 
 const Dashboard = () => {
   const [jobs, setJobs] = useState([]);
-  const [applications, setApplications] = useState([]); // Kotha state: Applied jobs kosam
+  const [applications, setApplications] = useState([]);
   const [loading, setLoading] = useState(true);
   const [appsLoading, setAppsLoading] = useState(true);
   
@@ -13,31 +13,41 @@ const Dashboard = () => {
   const [applyLoading, setApplyLoading] = useState(false);
   const [applyMessage, setApplyMessage] = useState('');
 
+  // 🟢 LIVE SERVER URL
+  const API_BASE_URL = 'https://ai-powered-ats-platform-bxqx.onrender.com';
+
   useEffect(() => {
     fetchJobs();
-    fetchMyApplications(); // Page load avvagane applications kuda thechukuntunnam
+    fetchMyApplications();
   }, []);
 
   const fetchJobs = () => {
-    axios.get('http://127.0.0.1:8000/api/jobs/')
+    // 🟢 FIXED: Localhost nunchi Render ki marcham
+    axios.get(`${API_BASE_URL}/api/jobs/`)
       .then((response) => {
         setJobs(response.data);
         setLoading(false);
       })
-      .catch((error) => console.error("Error fetching jobs:", error));
+      .catch((error) => {
+        console.error("Error fetching jobs:", error);
+        setLoading(false); // 🟢 FIXED: Error vachina loading aagipovali
+      });
   };
 
-  // Kotha Function: Token vaadi apply chesina jobs thechukovadam
   const fetchMyApplications = () => {
     const token = localStorage.getItem('access_token');
-    axios.get('http://127.0.0.1:8000/api/applications/', {
-      headers: { 'Authorization': `Bearer ${token}` } // Token pamputunnam
+    // 🟢 FIXED: Localhost nunchi Render ki marcham
+    axios.get(`${API_BASE_URL}/api/applications/`, {
+      headers: { 'Authorization': `Bearer ${token}` }
     })
       .then((response) => {
         setApplications(response.data);
         setAppsLoading(false);
       })
-      .catch((error) => console.error("Error fetching applications:", error));
+      .catch((error) => {
+        console.error("Error fetching applications:", error);
+        setAppsLoading(false); // 🟢 FIXED: Error vachina loading aagipovali
+      });
   };
 
   const handleApply = async (e) => {
@@ -56,7 +66,8 @@ const Dashboard = () => {
 
     try {
       const token = localStorage.getItem('access_token');
-      await axios.post('http://127.0.0.1:8000/api/applications/', formData, {
+      // 🟢 FIXED: Localhost nunchi Render ki marcham
+      await axios.post(`${API_BASE_URL}/api/applications/`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
           'Authorization': `Bearer ${token}`
@@ -66,9 +77,7 @@ const Dashboard = () => {
       setApplyMessage("✅ Successfully applied for the job!");
       setResumeFile(null);
       
-      // Apply chesina ventane My Applications table ni update chestunnam
       fetchMyApplications(); 
-      
       setTimeout(() => setSelectedJob(null), 2000); 
 
     } catch (error) {
@@ -99,10 +108,10 @@ const Dashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <StatCard icon={<Briefcase />} label="Total Jobs Available" value={jobs.length} color="bg-blue-50 text-blue-600" />
           <StatCard icon={<FileText />} label="Jobs Applied" value={applications.length} color="bg-purple-50 text-purple-600" />
-          <StatCard icon={<Clock />} label="In Review" value={applications.filter(a => a.status === 'applied').length} color="bg-yellow-50 text-yellow-600" />
+          <StatCard icon={<Clock />} label="In Review" value={applications.filter(a => a.status === 'APPLIED').length} color="bg-yellow-50 text-yellow-600" />
         </div>
 
-        {/* Kotha Section: My Applications Table */}
+        {/* My Applications Table */}
         <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mt-8">
           <div className="p-6 border-b border-gray-100 bg-gray-50/30">
             <h2 className="text-xl font-bold text-gray-800 flex items-center gap-2">
