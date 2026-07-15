@@ -138,9 +138,13 @@ AUTH_USER_MODEL = 'accounts.CustomUser'
 
 
 # React nunchi vache requests ni allow cheyyadaniki
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://127.0.0.1:5173",
+# React (Vercel) nunchi vache requests ni allow cheyyadaniki
+CORS_ALLOW_ALL_ORIGINS = True
+
+# Security kosam Render and Vercel links ni trust cheyadaniki
+CSRF_TRUSTED_ORIGINS = [
+    'https://ai-powered-ats-platform-bxqx.onrender.com',
+    # Nee Vercel original link kuda ikkada add cheyachu future lo if needed
 ]
 
 
